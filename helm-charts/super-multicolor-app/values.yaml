@@ -1,0 +1,29 @@
+# Configuration pour l'instance bleue
+blue-app:
+  enabled: false
+
+# Configuration pour l'instance orange
+orange-app:
+  enabled: false
+
+# Configuration pour l'instance violette
+purple-app:
+  enabled: true
+
+  color-app:
+    replicaCount: 3
+    color: purple
+    fullnameOverride: "purple-app"
+    service:
+      port: 10003
+      nodePort: 30003
+
+  config-map:
+    additionalText: "PURPLE TEXT"
+
+service:
+  type: NodePort
+  port: 10005
+  targetPort: 8080
+  nodePort: 30005
+  

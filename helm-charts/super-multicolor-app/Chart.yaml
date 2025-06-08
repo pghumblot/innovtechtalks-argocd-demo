@@ -1,0 +1,24 @@
+apiVersion: v2
+name: super-multicolor-app
+description: A parent Helm chart that demonstrates using color-app as a dependency
+type: application
+version: 0.1.0
+appVersion: "1.0.0"
+
+# Définit les dépendances du chart
+dependencies:
+  - name: super-color-app-v2
+    version: "0.1.0"
+    repository: "@demo-chartmuseum"
+    alias: blue-app
+    condition: blue-app.enabled
+  - name: super-color-app-v2
+    version: "0.1.0"
+    repository: "@demo-chartmuseum"
+    alias: orange-app
+    condition: orange-app.enabled
+  - name: super-color-app-v2
+    version: "0.1.0"
+    repository: "@demo-chartmuseum"
+    alias: purple-app
+    condition: purple-app.enabled

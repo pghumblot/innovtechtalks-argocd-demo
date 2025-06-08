@@ -1,0 +1,18 @@
+apiVersion: v2
+name: super-color-app-v2
+description: A parent Helm chart that demonstrates using color-app as a dependency
+type: application
+version: 0.1.0
+appVersion: "1.0.0"
+
+# Définit les dépendances du chart
+dependencies:
+  - name: color-app
+    version: "0.1.0"
+    repository: "@demo-chartmuseum"
+  - name: config-map
+    version: "0.1.0"
+    repository: "@demo-chartmuseum"
+
+
+
