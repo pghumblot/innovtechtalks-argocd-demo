@@ -1,0 +1,13 @@
+# Specific values for blue-app.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+replicaCount: 1
+
+color: blue
+
+service:
+  type: NodePort
+  port: 10002
+  targetPort: 8080
+  nodePort: 30002

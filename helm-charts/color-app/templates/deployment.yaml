@@ -1,0 +1,56 @@
+{{- if not .Values.color -}}
+{{- fail "La valeur 'color' doit être définie dans values.yaml ou via --set color=..." }}
+{{- end }}
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "color-app.fullname" . }}
+  labels:
+    {{- include "color-app.labels" . | nindent 4 }}
+    app: color-app
+    color: {{ .Values.color }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      {{- include "color-app.selectorLabels" . | nindent 6 }}
+      app: color-app
+  template:
+    metadata:
+      labels:
+        {{- include "color-app.selectorLabels" . | nindent 8 }}
+        app: color-app
+        color: {{ .Values.color }}
+    spec:
+      containers:
+        - name: {{ .Chart.Name }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - name: http
+              containerPort: 8080
+              protocol: TCP
+          env:
+            - name: COLOR
+              value: "{{ .Values.color }}"
+            - name: NAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 8080
+            initialDelaySeconds: 1
+            periodSeconds: 1
+            failureThreshold: 3
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 8080
+            initialDelaySeconds: 5
+            periodSeconds: 5
+            failureThreshold: 3
