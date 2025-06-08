@@ -10,7 +10,9 @@ help:
 # Deploy the demo applications
 run:
 	@echo "Starting color demo containers..."
+	@echo ""
 	kubectl run color-app-orange --image=color-demo:local --port=8080 --env=COLOR=orange
+	@echo ""
 	kubectl run color-app-blue --image=color-demo:local --port=8080 --env=COLOR=blue
 
 # Expose the applications using port-forwarding

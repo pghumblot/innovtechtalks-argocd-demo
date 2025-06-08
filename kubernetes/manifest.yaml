@@ -25,6 +25,10 @@ spec:
         env:
         - name: COLOR
           value: "orange"
+        - name: NAME
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.name
         resources:
           limits:
             memory: "128Mi"
@@ -40,8 +44,6 @@ metadata:
   labels:
     app: color-app
     color: orange
-  annotations:
-    kubectl.kubernetes.io/restarted: "true" # Force la mise à jour
 spec:
   sessionAffinity: None
   ports:
@@ -53,4 +55,3 @@ spec:
     app: color-app
     color: orange
   type: NodePort
-  # externalTrafficPolicy: Cluster

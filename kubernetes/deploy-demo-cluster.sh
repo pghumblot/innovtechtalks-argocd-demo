@@ -10,7 +10,8 @@ kind create cluster --name demo-cluster
 sleep 1
 
 # Load docker image
+echo ""
+echo "-----------------------"
 echo "Loading docker image..."
 echo "kind load docker-image color-demo:local --name demo-cluster"
-echo ""
 kind load docker-image color-demo:local --name demo-cluster

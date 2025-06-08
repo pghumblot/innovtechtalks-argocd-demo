@@ -41,5 +41,11 @@ clean-ports:
 	-pkill -f "port-forward.*color-app-orange"
 	-pkill -f "port-forward.*color-app-blue"
 
+# Set environment variables
+add-env:
+	@echo "Setting environment variables..."
+	kubectl set env deployment color-app-orange COLOR=orange
+	kubectl set env deployment color-app-blue COLOR=blue
+
 # Alias for help
 .DEFAULT_GOAL := help
