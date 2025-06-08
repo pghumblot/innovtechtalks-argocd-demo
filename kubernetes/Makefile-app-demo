@@ -1,0 +1,41 @@
+.PHONY: help run expose delete clean-ports
+
+# Default target
+help:
+	@echo "Available targets:"
+	@echo "  run     - Deploy the demo applications"
+	@echo "  expose  - Forward ports to access the applications"
+	@echo "  delete  - Remove the demo applications"
+
+# Deploy the demo applications
+run:
+	@echo "Starting color demo containers..."
+	kubectl run color-app-orange --image=color-demo:local --port=8080 --env=COLOR=orange
+	kubectl run color-app-blue --image=color-demo:local --port=8080 --env=COLOR=blue
+
+# Expose the applications using port-forwarding
+expose:
+	@echo "Forwarding ports..."
+	@echo ""
+	@echo "Access the applications at:"
+	@echo "- Orange: http://localhost:10001"
+	@echo "- Blue:   http://localhost:10002"
+	@echo ""
+	kubectl port-forward color-app-orange 10001:8080 &
+	kubectl port-forward color-app-blue 10002:8080 &
+	@fg 2>/dev/null || true
+
+# Delete the demo applications
+delete:
+	@echo "Deleting color demo containers..."
+	kubectl delete pod color-app-orange --ignore-not-found
+	kubectl delete pod color-app-blue --ignore-not-found
+
+# Clean up any port forwarding processes
+clean-ports:
+	@echo "Killing port-forward processes..."
+	-pkill -f "port-forward.*color-app-orange"
+	-pkill -f "port-forward.*color-app-blue"
+
+# Alias for help
+.DEFAULT_GOAL := help

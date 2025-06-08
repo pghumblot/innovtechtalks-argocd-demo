@@ -1,0 +1,56 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: color-app-orange
+  labels:
+    app: color-app
+    color: orange
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: color-app
+      color: orange
+  template:
+    metadata:
+      labels:
+        app: color-app
+        color: orange
+    spec:
+      containers:
+      - name: color-app
+        image: color-demo:local
+        ports:
+        - containerPort: 8080
+        env:
+        - name: COLOR
+          value: "orange"
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "100m"
+          requests:
+            memory: "128Mi"
+            cpu: "100m"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: color-app-orange
+  labels:
+    app: color-app
+    color: orange
+  annotations:
+    kubectl.kubernetes.io/restarted: "true" # Force la mise à jour
+spec:
+  sessionAffinity: None
+  ports:
+  - port: 10001
+    targetPort: 8080
+    nodePort: 30001
+    name: http
+  selector:
+    app: color-app
+    color: orange
+  type: NodePort
+  # externalTrafficPolicy: Cluster

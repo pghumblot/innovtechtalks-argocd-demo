@@ -1,0 +1,45 @@
+.PHONY: help run expose delete clean-ports
+
+# Default target
+help:
+	@echo "Available targets:"
+	@echo "  run     - Deploy the demo applications with deployments and services"
+	@echo "  expose  - Forward ports to access the applications"
+	@echo "  delete  - Remove the demo applications and services"
+
+# Deploy the demo applications with deployments and services
+run:
+	@echo "Deploying color demo applications..."
+	kubectl create deployment color-app-orange --image=color-demo:local --port=8080 --replicas=2
+	kubectl expose deployment color-app-orange --type=NodePort --port=10001 --target-port=8080 --name=color-app-orange
+	kubectl create deployment color-app-blue --image=color-demo:local --port=8080 --replicas=2
+	kubectl expose deployment color-app-blue --type=NodePort --port=10002 --target-port=8080 --name=color-app-blue
+
+# Expose the applications using port-forwarding
+expose:
+	@echo "Forwarding ports..."
+	@echo ""
+	@echo "Access the applications at:"
+	@echo "- Orange: http://localhost:10001"
+	@echo "- Blue:   http://localhost:10002"
+	@echo ""
+	kubectl port-forward svc/color-app-orange 10001:10001 &
+	kubectl port-forward svc/color-app-blue 10002:10002 &
+	@fg 2>/dev/null || true
+
+# Delete the demo applications and services
+delete:
+	@echo "Deleting color demo deployments and services..."
+	kubectl delete deployment color-app-orange --ignore-not-found
+	kubectl delete service color-app-orange --ignore-not-found
+	kubectl delete deployment color-app-blue --ignore-not-found
+	kubectl delete service color-app-blue --ignore-not-found
+
+# Clean up any port forwarding processes
+clean-ports:
+	@echo "Killing port-forward processes..."
+	-pkill -f "port-forward.*color-app-orange"
+	-pkill -f "port-forward.*color-app-blue"
+
+# Alias for help
+.DEFAULT_GOAL := help
