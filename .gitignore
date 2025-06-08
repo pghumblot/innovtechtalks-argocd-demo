@@ -1,0 +1,58 @@
+# IDE specific files
+.vscode/*
+!.vscode/settings.json
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Helm specific
+**/charts/*.tgz
+**/charts/*.tar.gz
+**/charts/*.tar
+**/charts/*.lock
+**/charts/*.tgz.prov
+
+# Dependencies
+**/charts/
+!**/charts/README.md
+
+# Local development
+.helm/
+.helmignore
+
+# Tiller (Helm v2)
+.helm/repository/
+.helm/repository-cache/
+.helm/plugins/
+
+# Logs
+*.log
+
+# Local environment files
+.env
+.env.local
+.env.*.local
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Kubernetes generated files
+kubeconfig*
+
+# Temp files
+*.tmp
+*.bak
+*.backup
+*~
+
+# Chart.lock files
+Chart.lock
+**/Chart.lock
