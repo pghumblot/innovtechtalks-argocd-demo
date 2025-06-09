@@ -6,7 +6,10 @@ set -euo pipefail
 CHARTMUSEUM_URL="http://localhost:30100"
 CHARTS=("color-app" "config-map" "super-color-app-v2" "super-multicolor-app")
 
-echo "📦 Packaging and uploading charts to $CHARTMUSEUM_URL"
+echo "-----------------------------------------------------------"
+echo "Packaging and uploading charts to $CHARTMUSEUM_URL"
+echo "-----------------------------------------------------------"
+echo ""
 
 # Crée un environnement Helm isolé
 TMP_HELM_HOME=$(mktemp -d)

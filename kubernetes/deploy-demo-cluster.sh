@@ -1,7 +1,10 @@
 #!/bin/bash
 
 # Create Kind cluster configuration
-echo "Creating Kind cluster configuration..."
+echo "-----------------------------------------------------------"
+echo "Generating Kind cluster configuration for ports mappings..."
+echo "-----------------------------------------------------------"
+echo ""
 cat > kind-config.yaml <<EOF
 kind: Cluster
 apiVersion: kind.x-k8s.io/v1alpha4
@@ -17,11 +20,18 @@ nodes:
       - containerPort: 30100
         hostPort: 30100
 EOF
+cat kind-config.yaml
+echo ""
 
 # Create cluster
-echo "Creating demo-cluster with port mappings..."
+echo "-----------------------------------------------------------"
+echo "Deploying local Kubernetes demo cluster..."
+echo "-----------------------------------------------------------"
+echo ""
 echo "kind create cluster --name demo-cluster --config=kind-config.yaml"
+echo ""
 kind create cluster --name demo-cluster --config=kind-config.yaml
+echo ""
 
 # Cleanup config file
 rm -f kind-config.yaml
@@ -31,8 +41,11 @@ rm -f kind-config.yaml
 sleep 1
 
 # Load docker image
-echo ""
-echo "-----------------------"
+echo "-----------------------------------------------------------"
 echo "Loading docker image..."
+echo "-----------------------------------------------------------"
+echo ""
 echo "kind load docker-image color-demo:local --name demo-cluster"
+echo ""
 kind load docker-image color-demo:local --name demo-cluster
+echo ""
