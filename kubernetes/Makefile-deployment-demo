@@ -9,43 +9,100 @@ help:
 
 # Deploy the demo applications with deployments and services
 run:
-	@echo "Deploying color demo applications..."
+	@echo "----------------------"
+	@echo "Deploying color demo containers..."
+	@echo "----------------------"
+	@echo ""
+	@echo "> Deployment resources..."
+	@echo ""
 	kubectl create deployment color-app-orange --image=color-demo:local --port=8080 --replicas=2
-	kubectl expose deployment color-app-orange --type=NodePort --port=10001 --target-port=8080 --name=color-app-orange
+	@echo ""
 	kubectl create deployment color-app-blue --image=color-demo:local --port=8080 --replicas=2
+	@echo ""
+	@echo "> Service resources..."
+	@echo ""
+	kubectl expose deployment color-app-orange --type=NodePort --port=10001 --target-port=8080 --name=color-app-orange
+	@echo ""
 	kubectl expose deployment color-app-blue --type=NodePort --port=10002 --target-port=8080 --name=color-app-blue
+	@echo ""
 
 # Expose the applications using port-forwarding
-expose:
+forward:
+	@echo "----------------------"
 	@echo "Forwarding ports..."
+	@echo "----------------------"
+	@echo ""
+	kubectl port-forward svc/color-app-orange 10001:10001 &
+	kubectl port-forward svc/color-app-blue 10002:10002 &
+	@fg 2>/dev/null || true
 	@echo ""
 	@echo "Access the applications at:"
 	@echo "- Orange: http://localhost:10001"
 	@echo "- Blue:   http://localhost:10002"
 	@echo ""
-	kubectl port-forward svc/color-app-orange 10001:10001 &
-	kubectl port-forward svc/color-app-blue 10002:10002 &
-	@fg 2>/dev/null || true
+
+# Run and expose the applications with delay
+up:
+	@make --no-print-directory -f Makefile-deployment-demo run
+	@sleep 3
+	@make --no-print-directory -f Makefile-deployment-demo forward
 
 # Delete the demo applications and services
 delete:
+	@echo "----------------------"
 	@echo "Deleting color demo deployments and services..."
+	@echo "----------------------"
+	@echo ""
+	@echo "> Deployment resources..."
+	@echo ""
 	kubectl delete deployment color-app-orange --ignore-not-found
-	kubectl delete service color-app-orange --ignore-not-found
+	@echo ""
 	kubectl delete deployment color-app-blue --ignore-not-found
+	@echo ""
+	@echo "> Service resources..."
+	@echo ""
+	kubectl delete service color-app-orange --ignore-not-found
+	@echo ""
 	kubectl delete service color-app-blue --ignore-not-found
+	@echo ""
 
 # Clean up any port forwarding processes
 clean-ports:
+	@echo "----------------------"
 	@echo "Killing port-forward processes..."
+	@echo "----------------------"
+	@echo ""
 	-pkill -f "port-forward.*color-app-orange"
 	-pkill -f "port-forward.*color-app-blue"
 
+# Stop and remove port-forward processes
+down:
+	@make --no-print-directory -f Makefile-deployment-demo delete
+	@make --no-print-directory -f Makefile-deployment-demo clean-ports
+
 # Set environment variables
 add-env:
+	@echo "----------------------"
 	@echo "Setting environment variables..."
-	kubectl set env deployment color-app-orange COLOR=orange
-	kubectl set env deployment color-app-blue COLOR=blue
+	@echo "----------------------"
+	@echo ""
+	kubectl set env deployment color-app-orange COLOR=coral
+	@echo ""
+	kubectl set env deployment color-app-blue COLOR=lightskyblue
+	@echo ""
+	@echo ""
+
+# Patch the color-app-orange service
+patch-service:
+	@echo "----------------------"
+	@echo "Patching color-app-orange service..."
+	@echo "----------------------"
+	@echo ""
+	kubectl patch service color-app-orange --type=merge -p '{"spec":{"sessionAffinity":"None","ports":[{"port":10001,"targetPort":8080,"nodePort":30001,"protocol":"TCP","name":"http"}]}}'
+	@echo ""
+	@echo ""
+
+
 
 # Alias for help
 .DEFAULT_GOAL := help

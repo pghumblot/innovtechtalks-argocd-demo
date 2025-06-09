@@ -9,35 +9,63 @@ help:
 
 # Deploy the demo applications
 run:
+	@echo "----------------------"
 	@echo "Starting color demo containers..."
+	@echo "----------------------"
 	@echo ""
-	kubectl run color-app-orange --image=color-demo:local --port=8080 --env=COLOR=orange
+	kubectl run color-app-orange --image=color-demo:local --port=8080 --env=COLOR=coral
 	@echo ""
-	kubectl run color-app-blue --image=color-demo:local --port=8080 --env=COLOR=blue
+	kubectl run color-app-blue --image=color-demo:local --port=8080 --env=COLOR=lightskyblue
+	@echo ""
 
 # Expose the applications using port-forwarding
-expose:
+forward:
+	@echo "----------------------"
 	@echo "Forwarding ports..."
+	@echo "----------------------"
+	@echo ""
+	kubectl port-forward color-app-orange 10001:8080 &
+	kubectl port-forward color-app-blue 10002:8080 &
+	@fg 2>/dev/null || true
 	@echo ""
 	@echo "Access the applications at:"
 	@echo "- Orange: http://localhost:10001"
 	@echo "- Blue:   http://localhost:10002"
 	@echo ""
-	kubectl port-forward color-app-orange 10001:8080 &
-	kubectl port-forward color-app-blue 10002:8080 &
-	@fg 2>/dev/null || true
+
+# Run and expose the applications with delay
+up:
+	@make --no-print-directory -f Makefile-app-demo run
+	@sleep 3
+	@make --no-print-directory -f Makefile-app-demo forward
+
 
 # Delete the demo applications
 delete:
+	@echo "----------------------"
 	@echo "Deleting color demo containers..."
+	@echo "----------------------"
+	@echo ""
 	kubectl delete pod color-app-orange --ignore-not-found
+	@echo ""
 	kubectl delete pod color-app-blue --ignore-not-found
+	@echo ""
 
 # Clean up any port forwarding processes
 clean-ports:
+	@echo "----------------------"
 	@echo "Killing port-forward processes..."
-	-pkill -f "port-forward.*color-app-orange"
-	-pkill -f "port-forward.*color-app-blue"
+	@echo "----------------------"
+	@echo ""
+	@-pkill -f "port-forward.*color-app-orange" || true
+	@-pkill -f "port-forward.*color-app-blue" || true
+	@echo ""
+
+# Stop and remove port-forward processes
+down:
+	@make --no-print-directory -f Makefile-app-demo delete
+	@make --no-print-directory -f Makefile-app-demo clean-ports
+
 
 # Alias for help
 .DEFAULT_GOAL := help

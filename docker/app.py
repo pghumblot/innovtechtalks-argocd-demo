@@ -12,7 +12,7 @@ def index():
 
     color = request.args.get("color", os.environ.get("COLOR", "gray"))
     name = os.environ.get("NAME", None)
-    name_display = f"<h2>Welcome, {name}!</h2>" if name else ""
+    name_display = f"<h2>Je suis le pod : {name}!</h2>" if name else ""
     return f"""
     <html>
         <head><title>{color} app</title></head>
