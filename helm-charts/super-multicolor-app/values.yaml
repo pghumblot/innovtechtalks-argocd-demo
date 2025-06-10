@@ -1,10 +1,14 @@
 # Configuration pour l'instance bleue
 blue-app:
   enabled: false
+  config-map:
+    colorname: blue
 
 # Configuration pour l'instance orange
 orange-app:
   enabled: false
+  config-map:
+    colorname: orange
 
 # Configuration pour l'instance violette
 purple-app:
@@ -19,6 +23,7 @@ purple-app:
       nodePort: 30003
 
   config-map:
+    colorname: purple
     additionalText: "PURPLE TEXT"
 
 service:
