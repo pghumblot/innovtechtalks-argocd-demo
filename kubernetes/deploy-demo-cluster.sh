@@ -11,14 +11,22 @@ apiVersion: kind.x-k8s.io/v1alpha4
 nodes:
   - role: control-plane
     extraPortMappings:
+      # Color app ports
       - containerPort: 30001
         hostPort: 30001
       - containerPort: 30002
         hostPort: 30002
       - containerPort: 30005
         hostPort: 30005
+
+      # ChartMuseum ports
       - containerPort: 30100
         hostPort: 30100
+
+      # ArgoCD ports
+      - containerPort: 30080
+        hostPort: 30080
+
 EOF
 cat kind-config.yaml
 echo ""
