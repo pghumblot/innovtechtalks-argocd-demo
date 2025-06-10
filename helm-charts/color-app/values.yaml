@@ -17,6 +17,9 @@ service:
   targetPort: 8080
   nodePort: 30001
 
+configMap:
+  enabled: false
+
 resources:
   limits:
     cpu: 100m

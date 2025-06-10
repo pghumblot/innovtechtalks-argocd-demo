@@ -103,6 +103,12 @@ patch-service:
 	@echo ""
 
 
+# Run and expose the applications with delay
+reload:
+	@make --no-print-directory -f Makefile-deployment-demo clean-ports
+	@sleep 2
+	@make --no-print-directory -f Makefile-deployment-demo forward
+
 
 # Alias for help
 .DEFAULT_GOAL := help

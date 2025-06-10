@@ -11,6 +11,7 @@ apiVersion: kind.x-k8s.io/v1alpha4
 nodes:
   - role: control-plane
     extraPortMappings:
+
       # Color app ports
       - containerPort: 30001
         hostPort: 30001
@@ -44,7 +45,6 @@ echo ""
 # Cleanup config file
 rm -f kind-config.yaml
 
-
 # Wait for cluster to be ready
 sleep 1
 
@@ -57,3 +57,6 @@ echo "kind load docker-image color-demo:local --name demo-cluster"
 echo ""
 kind load docker-image color-demo:local --name demo-cluster
 echo ""
+
+# Create app namespace
+kubectl create namespace app >/dev/null 2>&1

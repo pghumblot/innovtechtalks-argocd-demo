@@ -6,6 +6,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: {{ include "color-app.fullname" . }}
+  namespace: app
   labels:
     {{- include "color-app.labels" . | nindent 4 }}
     app: color-app
@@ -37,14 +38,27 @@ spec:
             - name: NAME
               valueFrom:
                 fieldRef:
-                  fieldPath: metadata.name
+                  fieldPath: metadata.uid
+          {{- if and .Values.configMap .Values.configMap.enabled }}
+            - name: BASE_TEXT
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ .Values.configMap.name }}
+                  key: base-text
+            - name: ADDITIONAL_TEXT
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ .Values.configMap.name }}
+                  key: additional-text
+          {{- end }}
+
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
           livenessProbe:
             httpGet:
               path: /
               port: 8080
-            initialDelaySeconds: 1
+            initialDelaySeconds: 20
             periodSeconds: 1
             failureThreshold: 3
           readinessProbe:

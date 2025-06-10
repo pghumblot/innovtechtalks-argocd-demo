@@ -12,6 +12,7 @@ echo "----------------------------------"
 echo " Adding ArgoCD Helm repository... "
 echo "----------------------------------"
 echo ""
+unset HELM_REPOSITORY_CONFIG
 execute helm repo add argo https://argoproj.github.io/argo-helm
 execute helm repo update argo
 echo ""
