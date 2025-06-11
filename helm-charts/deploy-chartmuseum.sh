@@ -37,7 +37,7 @@ fi
 echo "----------------------------------------"
 echo "Configuring local Helm repository..."
 echo "----------------------------------------"
-
+unset HELM_REPOSITORY_CONFIG
 echo "1. Adding 'demo-chartmuseum' repository..."
 execute helm repo add demo-chartmuseum http://localhost:30100
 

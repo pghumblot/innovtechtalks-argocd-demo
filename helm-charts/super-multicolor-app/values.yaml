@@ -3,12 +3,22 @@ blue-app:
   enabled: false
   config-map:
     colorname: blue
+    name: "super-multicolor-app-blue-config"
+  color-app:
+    configMap:
+      enabled: true
+      name: "super-multicolor-app-blue-config"
 
 # Configuration pour l'instance orange
 orange-app:
   enabled: false
   config-map:
     colorname: orange
+    name: "super-multicolor-app-orange-config"
+  color-app:
+    configMap:
+      enabled: true
+      name: "super-multicolor-app-orange-config"
 
 # Configuration pour l'instance violette
 purple-app:
@@ -21,9 +31,13 @@ purple-app:
     service:
       port: 10003
       nodePort: 30003
+    configMap:
+      enabled: true
+      name: "super-multicolor-app-purple-config"
 
   config-map:
     colorname: purple
+    name: "super-multicolor-app-purple-config"
     additionalText: "PURPLE TEXT"
 
 service:
