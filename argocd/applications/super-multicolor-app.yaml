@@ -1,0 +1,26 @@
+
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: super-multicolor-app
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: default
+  source:
+    repoURL: 'https://github.com/pghumblot/innovtechtalks-argocd-demo.git'
+    path: helm-charts/super-multicolor-app
+    targetRevision: demo
+    helm:
+      valueFiles:
+        - values-all-apps.yaml
+  destination:
+    server: 'https://kubernetes.default.svc'
+    namespace: app
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
