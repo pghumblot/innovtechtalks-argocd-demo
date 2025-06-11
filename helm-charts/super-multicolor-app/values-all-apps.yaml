@@ -9,6 +9,8 @@ blue-app:
     service:
       port: 10002
       nodePort: 30002
+    initContainer:
+      enabled: true
 
   config-map:
     additionalText: "BLUE TEXT"
@@ -24,6 +26,8 @@ orange-app:
     service:
       port: 10001
       nodePort: 30001
+    initContainer:
+      enabled: true
 
   config-map:
     additionalText: "ORANGE TEXT"

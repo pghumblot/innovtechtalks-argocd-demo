@@ -24,6 +24,12 @@ spec:
         app: color-app
         color: {{ .Values.color }}
     spec:
+      {{- if .Values.initContainer.enabled }}
+      initContainers:
+        - name: init-message
+          image: busybox:1.36
+          command: ['sh', '-c', 'echo "COUCOU {{ .Values.color }}"']
+      {{- end }}
       containers:
         - name: {{ .Chart.Name }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
