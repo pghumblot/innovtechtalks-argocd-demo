@@ -31,6 +31,3 @@ orange-app:
 
   config-map:
     additionalText: "ORANGE TEXT"
-
-simplepod:
-  enabled: true

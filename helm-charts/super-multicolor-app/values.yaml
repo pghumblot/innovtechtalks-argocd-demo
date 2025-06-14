@@ -45,6 +45,3 @@ service:
   port: 10005
   targetPort: 8080
   nodePort: 30005
-
-simplepod:
-  enabled: false
