@@ -12,7 +12,7 @@ blue-app:
     initContainer:
       enabled: true
 
-  config-map:
+  color-data:
     additionalText: "BLUE TEXT"
 
 # Configuration pour l'instance orange
@@ -29,5 +29,5 @@ orange-app:
     initContainer:
       enabled: true
 
-  config-map:
+  color-data:
     additionalText: "ORANGE TEXT"

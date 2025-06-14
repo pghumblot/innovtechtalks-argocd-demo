@@ -6,7 +6,7 @@ color-app:
     enabled: true
     name: "super-color-app-config"
 
-# Configuration pour le sous-chart config-map
-config-map:
+# Configuration pour le sous-chart color-data
+color-data:
   name: "super-color-app-config"
   additionalText: "TEXTE ADDITIONNEL"

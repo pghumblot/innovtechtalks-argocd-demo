@@ -4,7 +4,7 @@ set -euo pipefail
 
 # Configuration
 CHARTMUSEUM_URL="http://localhost:30100"
-CHARTS=("color-app" "config-map" "super-color-app-v2" "super-multicolor-app")
+CHARTS=("color-app" "color-data" "super-color-app-v2" "super-multicolor-app")
 
 echo "-----------------------------------------------------------"
 echo "Packaging and uploading charts to $CHARTMUSEUM_URL"

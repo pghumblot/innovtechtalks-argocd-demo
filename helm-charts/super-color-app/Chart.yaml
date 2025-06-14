@@ -10,6 +10,6 @@ dependencies:
   - name: color-app
     version: "0.1.0"
     repository: "file://../color-app"
-  - name: config-map
+  - name: color-data
     version: "0.1.0"
-    repository: "file://../config-map"
+    repository: "file://../color-data"

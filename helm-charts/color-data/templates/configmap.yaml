@@ -4,7 +4,7 @@ metadata:
   name: {{- if .Values.name }}
            {{ .Values.name }}
          {{- else }}
-           {{ include "config-map.fullname" . }}{{- if .Values.colorname }}-{{ .Values.colorname }}{{- end }}
+           {{ include "color-data.fullname" . }}{{- if .Values.colorname }}-{{ .Values.colorname }}{{- end }}
          {{- end }}
   namespace: app
 data:

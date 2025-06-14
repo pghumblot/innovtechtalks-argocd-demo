@@ -1,7 +1,7 @@
 # Configuration pour l'instance bleue
 blue-app:
   enabled: false
-  config-map:
+  color-data:
     colorname: blue
     name: "super-multicolor-app-blue-config"
   color-app:
@@ -12,7 +12,7 @@ blue-app:
 # Configuration pour l'instance orange
 orange-app:
   enabled: false
-  config-map:
+  color-data:
     colorname: orange
     name: "super-multicolor-app-orange-config"
   color-app:
@@ -35,7 +35,7 @@ purple-app:
       enabled: true
       name: "super-multicolor-app-purple-config"
 
-  config-map:
+  color-data:
     colorname: purple
     name: "super-multicolor-app-purple-config"
     additionalText: "PURPLE TEXT"

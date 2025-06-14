@@ -3,6 +3,6 @@ color-app:
   replicaCount: 1
   color: purple
 
-# Configuration pour le sous-chart config-map
-config-map:
+# Configuration pour le sous-chart color-data
+color-data:
   additionalText: "TEXTE ADDITIONNEL"

@@ -10,7 +10,7 @@ dependencies:
   - name: color-app
     version: "0.1.0"
     repository: "@demo-chartmuseum"
-  - name: config-map
+  - name: color-data
     version: "0.1.0"
     repository: "@demo-chartmuseum"
 
