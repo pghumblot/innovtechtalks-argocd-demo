@@ -30,11 +30,3 @@ execute helm upgrade --install argocd argo/argo-cd \
   --wait \
   --timeout 5m
 echo ""
-
-echo "----------------------"
-echo " ArgoCD installation completed! "
-echo "----------------------"
-echo ""
-echo "To get the admin password, run:"
-echo "kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath=\"{.data.password}\" | base64 -d"
-echo ""

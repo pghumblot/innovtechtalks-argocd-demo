@@ -27,14 +27,16 @@ for chart in "${CHARTS[@]}"; do
   fi
 
   echo "➡️  Packaging chart: $chart"
+  echo ""
 
-  # 🔄 Build dependencies s’il y en a
   if grep -q "dependencies:" "$chart/Chart.yaml"; then
     echo "🔄 Building Helm dependencies for $chart"
     helm dependency build "$chart"
+    echo ""
   fi
 
   helm package "$chart" --destination "$TMP_HELM_HOME"
+  echo ""
 
   PACKAGE_FILE=$(ls "$TMP_HELM_HOME"/${chart}-*.tgz | sort -V | tail -n 1)
 
@@ -44,6 +46,7 @@ for chart in "${CHARTS[@]}"; do
     "$CHARTMUSEUM_URL/api/charts"
 
   echo "✅ Uploaded: $PACKAGE_FILE"
+  echo ""
 done
 
 echo "🧹 Cleaning up..."
