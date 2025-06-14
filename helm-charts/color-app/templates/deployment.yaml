@@ -64,13 +64,11 @@ spec:
             httpGet:
               path: /
               port: 8080
-            initialDelaySeconds: 20
             periodSeconds: 1
-            failureThreshold: 3
+            failureThreshold: 10
           readinessProbe:
             httpGet:
               path: /
               port: 8080
-            initialDelaySeconds: 5
-            periodSeconds: 5
+            periodSeconds: 2
             failureThreshold: 3
