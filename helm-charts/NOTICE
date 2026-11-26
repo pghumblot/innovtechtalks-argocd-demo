@@ -1,0 +1,1 @@
+Helm chart scaffolding and helpers are derived from Helm (https://github.com/helm/helm), Copyright The Helm Authors, licensed under Apache License 2.0. The templates have been adapted for this demo by Pierre-Georges Humblot. As a conservative licensing boundary, the helm-charts directory is distributed under Apache-2.0.
