@@ -41,3 +41,7 @@ L'application est accessible sur `http://localhost:8080` par défaut après le d
 ---
 
 *Ce projet est une démonstration pour les Innov'Tech Talks sur ArgoCD.*
+
+## Licence
+
+Le code et la documentation originaux hors `helm-charts/` sont proposés sous [MIT](LICENSE). Le dossier `helm-charts/` est distribué sous [Apache-2.0](helm-charts/LICENSE), notamment pour préserver les droits et mentions des modèles Helm adaptés ; voir [NOTICE](helm-charts/NOTICE). Les dépendances, images et outils externes conservent leurs licences respectives.

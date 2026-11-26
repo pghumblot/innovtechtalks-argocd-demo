@@ -1,3 +1,4 @@
+{{/* Copyright The Helm Authors. Licensed under Apache-2.0; modified for this demo by Pierre-Georges Humblot. See helm-charts/LICENSE and NOTICE. */}}
 {{/* vim: set filetype=mustache: */}}
 {{/*
 Expand the name of the chart.
